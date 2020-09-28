@@ -136,7 +136,6 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
             <StyledTitle>{farm.name}</StyledTitle>
             <StyledDetails>
               <StyledDetail>Deposit {farm.lpToken.toUpperCase()}</StyledDetail>
-              //  ここをLOD Tokenにする
               <StyledDetail>Earn {farm.earnToken.toUpperCase()}</StyledDetail>
             </StyledDetails>
             <Spacer />

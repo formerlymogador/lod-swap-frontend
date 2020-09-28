@@ -13,7 +13,7 @@ const Home: React.FC = () => {
     <Page>
       <PageHeader
         icon={<img src={chef} height={120} />}
-        title="MasterChef is Ready"
+        title="Pirate King is Ready"
         subtitle="Stake Uniswap LP tokens to claim your very own yummy LOD!"
       />
 
@@ -31,7 +31,7 @@ const Home: React.FC = () => {
           margin: '0 auto',
         }}
       >
-        <Button text="🔪 See the Menu" to="/farms" variant="secondary" />
+        <Button text="🔪 See the Menu" to="/farms/LOD-ETH%20UNI-V2%20LP" variant="secondary" />
       </div>
     </Page>
   )

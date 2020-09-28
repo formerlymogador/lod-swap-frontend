@@ -58,7 +58,7 @@ const Farm: React.FC = () => {
     <>
       <PageHeader
         icon={icon}
-        subtitle={`Deposit ${lpTokenName}  Tokens and earn ${earnTokenName}`}
+        subtitle={`Deposit ${lpTokenName}  Tokens and earn ${earnTokenName} APY Na%`}
         title={name}
       />
       <StyledFarm>

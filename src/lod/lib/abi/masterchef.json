@@ -2,14 +2,14 @@
   {
     "inputs": [
       {
-        "internalType": "contract SushiToken",
-        "name": "_sushi",
+        "internalType": "contract LodToken",
+        "name": "_lod",
         "type": "address"
       },
       { "internalType": "address", "name": "_devaddr", "type": "address" },
       {
         "internalType": "uint256",
-        "name": "_sushiPerBlock",
+        "name": "_lodPerBlock",
         "type": "uint256"
       },
       { "internalType": "uint256", "name": "_startBlock", "type": "uint256" },
@@ -144,7 +144,7 @@
       { "internalType": "uint256", "name": "_pid", "type": "uint256" },
       { "internalType": "address", "name": "_user", "type": "address" }
     ],
-    "name": "pendingSushi",
+    "name": "pendingLod",
     "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
     "stateMutability": "view",
     "type": "function"
@@ -166,7 +166,7 @@
       },
       {
         "internalType": "uint256",
-        "name": "accSushiPerShare",
+        "name": "accLodPerShare",
         "type": "uint256"
       }
     ],
@@ -207,16 +207,16 @@
   },
   {
     "inputs": [],
-    "name": "sushi",
+    "name": "lod",
     "outputs": [
-      { "internalType": "contract SushiToken", "name": "", "type": "address" }
+      { "internalType": "contract LodToken", "name": "", "type": "address" }
     ],
     "stateMutability": "view",
     "type": "function"
   },
   {
     "inputs": [],
-    "name": "sushiPerBlock",
+    "name": "lodPerBlock",
     "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
     "stateMutability": "view",
     "type": "function"

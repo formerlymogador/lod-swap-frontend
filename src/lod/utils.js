@@ -13,26 +13,26 @@ const GAS_LIMIT = {
   },
 }
 
-export const getMasterChefAddress = (sushi) => {
-  return sushi && sushi.masterChefAddress
+export const getMasterChefAddress = (lod) => {
+  return lod && lod.masterChefAddress
 }
-export const getSushiAddress = (sushi) => {
-  return sushi && sushi.sushiAddress
+export const getlodAddress = (lod) => {
+  return lod && lod.lodAddress
 }
-export const getWethContract = (sushi) => {
-  return sushi && sushi.contracts && sushi.contracts.weth
-}
-
-export const getMasterChefContract = (sushi) => {
-  return sushi && sushi.contracts && sushi.contracts.masterChef
-}
-export const getSushiContract = (sushi) => {
-  return sushi && sushi.contracts && sushi.contracts.sushi
+export const getWethContract = (lod) => {
+  return lod && lod.contracts && lod.contracts.weth
 }
 
-export const getFarms = (sushi) => {
-  return sushi
-    ? sushi.contracts.pools.map(
+export const getMasterChefContract = (lod) => {
+  return lod && lod.contracts && lod.contracts.masterChef
+}
+export const getLodContract = (lod) => {
+  return lod && lod.contracts && lod.contracts.lod
+}
+
+export const getFarms = (lod) => {
+  return lod
+    ? lod.contracts.pools.map(
         ({
           pid,
           name,
@@ -54,7 +54,7 @@ export const getFarms = (sushi) => {
           tokenSymbol,
           tokenContract,
           earnToken: 'LOD',
-          earnTokenAddress: sushi.contracts.sushi.options.address,
+          earnTokenAddress: lod.contracts.lod.options.address,
           icon,
         }),
       )
@@ -70,7 +70,7 @@ export const getPoolWeight = async (masterChefContract, pid) => {
 }
 
 export const getEarned = async (masterChefContract, pid, account) => {
-  return masterChefContract.methods.pendingSushi(pid, account).call()
+  return masterChefContract.methods.pendingLod(pid, account).call()
 }
 
 export const getTotalLPWethValue = async (
@@ -122,8 +122,8 @@ export const approve = async (lpContract, masterChefContract, account) => {
     .send({ from: account })
 }
 
-export const getSushiSupply = async (sushi) => {
-  return new BigNumber(await sushi.contracts.sushi.methods.totalSupply().call())
+export const getLodSupply = async (lod) => {
+  return new BigNumber(await lod.contracts.lod.methods.totalSupply().call())
 }
 
 export const stake = async (masterChefContract, pid, amount, account) => {

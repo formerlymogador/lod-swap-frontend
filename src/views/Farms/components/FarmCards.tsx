@@ -14,8 +14,8 @@ import useAllStakedValue, {
   StakedValue,
 } from '../../../hooks/useAllStakedValue'
 import useFarms from '../../../hooks/useFarms'
-import useSushi from '../../../hooks/useSushi'
-import { getEarned, getMasterChefContract } from '../../../sushi/utils'
+import useLod from '../../../hooks/useLod'
+import { getEarned, getMasterChefContract } from '../../../lod/utils'
 import { bnToDec } from '../../../utils'
 
 interface FarmWithStakedValue extends Farm, StakedValue {
@@ -27,13 +27,13 @@ const FarmCards: React.FC = () => {
   const { account } = useWallet()
   const stakedValue = useAllStakedValue()
 
-  const sushiIndex = farms.findIndex(
+  const lodIndex = farms.findIndex(
     ({ tokenSymbol }) => tokenSymbol === 'LOD',
   )
 
-  const sushiPrice =
-    sushiIndex >= 0 && stakedValue[sushiIndex]
-      ? stakedValue[sushiIndex].tokenPriceInWeth
+  const lodPrice =
+    lodIndex >= 0 && stakedValue[lodIndex]
+      ? stakedValue[lodIndex].tokenPriceInWeth
       : new BigNumber(0)
 
   const BLOCKS_PER_YEAR = new BigNumber(2336000)
@@ -45,7 +45,7 @@ const FarmCards: React.FC = () => {
         ...farm,
         ...stakedValue[i],
         apy: stakedValue[i]
-          ? sushiPrice
+          ? lodPrice
               .times(SUSHI_PER_BLOCK)
               .times(BLOCKS_PER_YEAR)
               .times(stakedValue[i].poolWeight)
@@ -95,7 +95,7 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
 
   const { account } = useWallet()
   const { lpTokenAddress } = farm
-  const sushi = useSushi()
+  const lod = useLod()
 
   const renderer = (countdownProps: CountdownRenderProps) => {
     const { hours, minutes, seconds } = countdownProps
@@ -111,18 +111,18 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
 
   useEffect(() => {
     async function fetchEarned() {
-      if (sushi) return
+      if (lod) return
       const earned = await getEarned(
-        getMasterChefContract(sushi),
+        getMasterChefContract(lod),
         lpTokenAddress,
         account,
       )
       setHarvestable(bnToDec(earned))
     }
-    if (sushi && account) {
+    if (lod && account) {
       fetchEarned()
     }
-  }, [sushi, lpTokenAddress, account, setHarvestable])
+  }, [lod, lpTokenAddress, account, setHarvestable])
 
   const poolActive = true // startTime * 1000 - Date.now() <= 0
 

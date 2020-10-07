@@ -2,35 +2,35 @@ import React, { createContext, useEffect, useState } from 'react'
 
 import { useWallet } from 'use-wallet'
 
-import { Sushi } from '../../sushi'
+import { Lod } from '../../lod'
 
-export interface SushiContext {
-  sushi?: typeof Sushi
+export interface LodContext {
+  lod?: typeof Lod
 }
 
-export const Context = createContext<SushiContext>({
-  sushi: undefined,
+export const Context = createContext<LodContext>({
+  lod: undefined,
 })
 
 declare global {
   interface Window {
-    sushisauce: any
+    lodsauce: any
   }
 }
 
-const SushiProvider: React.FC = ({ children }) => {
+const LodProvider: React.FC = ({ children }) => {
   const { ethereum }: { ethereum: any } = useWallet()
-  const [sushi, setSushi] = useState<any>()
+  const [lod, setLod] = useState<any>()
 
   // @ts-ignore
-  window.sushi = sushi
+  window.lod = lod
   // @ts-ignore
   window.eth = ethereum
 
   useEffect(() => {
     if (ethereum) {
       const chainId = Number(ethereum.chainId)
-      const sushiLib = new Sushi(ethereum, chainId, false, {
+      const lodLib = new Lod(ethereum, chainId, false, {
         defaultAccount: ethereum.selectedAddress,
         defaultConfirmations: 1,
         autoGasMultiplier: 1.5,
@@ -40,12 +40,12 @@ const SushiProvider: React.FC = ({ children }) => {
         accounts: [],
         ethereumNodeTimeout: 10000,
       })
-      setSushi(sushiLib)
-      window.sushisauce = sushiLib
+      setLod(lodLib)
+      window.lodsauce = lodLib
     }
   }, [ethereum])
 
-  return <Context.Provider value={{ sushi }}>{children}</Context.Provider>
+  return <Context.Provider value={{ lod }}>{children}</Context.Provider>
 }
 
-export default SushiProvider
+export default LodProvider

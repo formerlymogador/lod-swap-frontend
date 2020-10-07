@@ -8,13 +8,13 @@ import CardContent from '../../../components/CardContent'
 import Label from '../../../components/Label'
 import Spacer from '../../../components/Spacer'
 import Value from '../../../components/Value'
-import SushiIcon from '../../../components/SushiIcon'
+import LodIcon from '../../../components/LodIcon'
 import useAllEarnings from '../../../hooks/useAllEarnings'
 import useAllStakedValue from '../../../hooks/useAllStakedValue'
 import useFarms from '../../../hooks/useFarms'
 import useTokenBalance from '../../../hooks/useTokenBalance'
-import useSushi from '../../../hooks/useSushi'
-import { getSushiAddress, getSushiSupply } from '../../../sushi/utils'
+import useLod from '../../../hooks/useLod'
+import { getlodAddress, getLodSupply } from '../../../lod/utils'
 import { getBalanceNumber } from '../../../utils/formatBalance'
 
 const PendingRewards: React.FC = () => {
@@ -71,19 +71,19 @@ const PendingRewards: React.FC = () => {
 
 const Balances: React.FC = () => {
   const [totalSupply, setTotalSupply] = useState<BigNumber>()
-  const sushi = useSushi()
-  const sushiBalance = useTokenBalance(getSushiAddress(sushi))
+  const lod = useLod()
+  const lodBalance = useTokenBalance(getlodAddress(lod))
   const { account, ethereum }: { account: any; ethereum: any } = useWallet()
 
   useEffect(() => {
     async function fetchTotalSupply() {
-      const supply = await getSushiSupply(sushi)
+      const supply = await getLodSupply(lod)
       setTotalSupply(supply)
     }
-    if (sushi) {
+    if (lod) {
       fetchTotalSupply()
     }
-  }, [sushi, setTotalSupply])
+  }, [lod, setTotalSupply])
 
   return (
     <StyledWrapper>
@@ -91,12 +91,12 @@ const Balances: React.FC = () => {
         <CardContent>
           <StyledBalances>
             <StyledBalance>
-              <SushiIcon />
+              <LodIcon />
               <Spacer />
               <div style={{ flex: 1 }}>
                 <Label text="Your LOD Balance" />
                 <Value
-                  value={!!account ? getBalanceNumber(sushiBalance) : 'Locked'}
+                  value={!!account ? getBalanceNumber(lodBalance) : 'Locked'}
                 />
               </div>
             </StyledBalance>

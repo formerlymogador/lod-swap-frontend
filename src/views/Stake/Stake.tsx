@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useMemo } from 'react'
 import styled from 'styled-components'
 import chef from '../../assets/img/chef.png'
 
@@ -20,11 +20,35 @@ import { getContract } from '../../utils/erc20'
 import { getMasterChefContract } from '../../lod/utils'
 
 import Harvest from './components/Harvest'
+import EtanolHarvest from './components/EtanolHarvest'
 import Stake from './components/Stake'
+
+import Spacer from '../../components/Spacer'
+
+import FarmCards from './components/FarmCards'
 
 const Farm: React.FC = () => {
   const { account } = useWallet()
   const [onPresentWalletProviderModal] = useModal(<WalletProviderModal />)
+  const { farmId } = useParams()
+  const {
+    pid,
+    lpToken,
+    lpTokenAddress,
+    tokenAddress,
+    earnToken,
+    name,
+    icon,
+  } = useFarm(farmId) || {
+    pid: 0,
+    lpToken: '',
+    lpTokenAddress: '',
+    tokenAddress: '',
+    earnToken: '',
+    name: '',
+    icon: '',
+  }
+  
 
   useEffect(() => {
     window.scrollTo(0, 0)
@@ -33,19 +57,21 @@ const Farm: React.FC = () => {
   const lod = useLod()
   const { ethereum } = useWallet()
 
-  // const lpContract = useMemo(() => {
-  //   return getContract(ethereum as provider, lpTokenAddress)
-  // }, [ethereum, lpTokenAddress])
+  const lpContract = useMemo(() => {
+    return getContract(ethereum as provider, lpTokenAddress)
+  }, [ethereum, lpTokenAddress])
 
-  // const { onRedeem } = useRedeem(getMasterChefContract(lod))
+  const { onRedeem } = useRedeem(getMasterChefContract(lod))
 
-  // const lpTokenName = useMemo(() => {
-  //   return lpToken.toUpperCase()
-  // }, [lpToken])
+  const lpTokenName = useMemo(() => {
+    return lpToken.toUpperCase()
+  }, [lpToken])
 
-  // const earnTokenName = useMemo(() => {
-  //   return earnToken.toUpperCase()
-  // }, [earnToken])
+  const earnTokenName = useMemo(() => {
+    return earnToken.toUpperCase()
+  }, [earnToken])
+
+  
 
   return (
     <Page>
@@ -53,11 +79,34 @@ const Farm: React.FC = () => {
         <>
           <PageHeader
             icon={<img src={chef} height="120" />}
-            title="Stake LOD Tokens & Earn Fees"
+            title="Stake LOD & Earn Fees"
             subtitle="0.05% of all LOD Swap trades are rewarded to LOD stakers"
           />
-          {/* <FarmCards /> */}
-          <div>TBD</div>
+                <StyledFarm>
+        <StyledCardsWrapper>
+        <StyledCardWrapper>
+            <EtanolHarvest pid={pid} />
+          </StyledCardWrapper>
+          <Spacer />
+          <StyledCardWrapper>
+            <Harvest pid={pid} />
+          </StyledCardWrapper>
+          <Spacer />
+          <StyledCardWrapper>
+            <Stake
+              lpContract={lpContract}
+              pid={pid}
+              tokenName={lpToken.toUpperCase()}
+            />
+          </StyledCardWrapper>
+        </StyledCardsWrapper>
+        <Spacer size="lg" />
+        <StyledInfo>
+          ⭐️ Every time you stake and unstake LP tokens, the contract will
+          automagically harvest LOD rewards for you!
+        </StyledInfo>
+        <Spacer size="lg" />
+      </StyledFarm>
         </>
       ) : (
         <div
@@ -89,7 +138,7 @@ const StyledFarm = styled.div`
 
 const StyledCardsWrapper = styled.div`
   display: flex;
-  width: 600px;
+  width: 900px;
   @media (max-width: 768px) {
     width: 100%;
     flex-flow: column nowrap;

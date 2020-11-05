@@ -48,7 +48,6 @@ const Farm: React.FC = () => {
     name: '',
     icon: '',
   }
-  
 
   useEffect(() => {
     window.scrollTo(0, 0)
@@ -71,42 +70,36 @@ const Farm: React.FC = () => {
     return earnToken.toUpperCase()
   }, [earnToken])
 
-  
-
   return (
     <Page>
       {!!account ? (
         <>
           <PageHeader
-            icon={<img src={chef} height="120" />}
-            title="Stake LOD & Earn Fees"
-            subtitle="0.05% of all LOD Swap trades are rewarded to LOD stakers"
+            icon="🌽"
+            title="Staking LOD"
+            subtitle="stake LOD to earn extra LOD."
           />
-                <StyledFarm>
-        <StyledCardsWrapper>
-        <StyledCardWrapper>
-            <EtanolHarvest pid={pid} />
-          </StyledCardWrapper>
-          <Spacer />
-          <StyledCardWrapper>
-            <Harvest pid={pid} />
-          </StyledCardWrapper>
-          <Spacer />
-          <StyledCardWrapper>
-            <Stake
-              lpContract={lpContract}
-              pid={pid}
-              tokenName={lpToken.toUpperCase()}
-            />
-          </StyledCardWrapper>
-        </StyledCardsWrapper>
-        <Spacer size="lg" />
-        <StyledInfo>
-          ⭐️ Every time you stake and unstake LP tokens, the contract will
-          automagically harvest LOD rewards for you!
-        </StyledInfo>
-        <Spacer size="lg" />
-      </StyledFarm>
+          <StyledFarm>
+            <StyledCardsWrapper>
+              <StyledCardWrapper>
+                <Harvest pid={pid} />
+              </StyledCardWrapper>
+              <Spacer />
+              <StyledCardWrapper>
+                <Stake
+                  lpContract={lpContract}
+                  pid={pid}
+                  tokenName={lpToken.toUpperCase()}
+                />
+              </StyledCardWrapper>
+            </StyledCardsWrapper>
+            <Spacer size="lg" />
+            <StyledInfo>
+              ⭐️ Every time you stake and unstake LOD tokens, the contract will
+              automagically distribute LOD rewards for you!
+            </StyledInfo>
+            <Spacer size="lg" />
+          </StyledFarm>
         </>
       ) : (
         <div
@@ -138,7 +131,7 @@ const StyledFarm = styled.div`
 
 const StyledCardsWrapper = styled.div`
   display: flex;
-  width: 900px;
+  width: 600px;
   @media (max-width: 768px) {
     width: 100%;
     flex-flow: column nowrap;
@@ -156,7 +149,7 @@ const StyledCardWrapper = styled.div`
 `
 
 const StyledInfo = styled.h3`
-  color: ${(props) => props.theme.color.grey[400]};
+  color: ${(props) => props.theme.color.white};
   font-size: 16px;
   font-weight: 400;
   margin: 0;

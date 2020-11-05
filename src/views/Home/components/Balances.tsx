@@ -43,7 +43,7 @@ const PendingRewards: React.FC = () => {
   useEffect(() => {
     setStart(end)
     setEnd(sumEarning)
-  }, [sumEarning])
+  }, [end, sumEarning])
 
   return (
     <span
@@ -103,7 +103,7 @@ const Balances: React.FC = () => {
           </StyledBalances>
         </CardContent>
         <Footnote>
-          Pending harvest
+          Unclaimed LOD
           <FootnoteValue>
             <PendingRewards /> LOD
           </FootnoteValue>
@@ -113,7 +113,7 @@ const Balances: React.FC = () => {
 
       <Card>
         <CardContent>
-          <Label text="Total LOD Supply" />
+          <Label text="Remaining LOD rewards" />
           <Value
             value={totalSupply ? getBalanceNumber(totalSupply) : 'Locked'}
           />

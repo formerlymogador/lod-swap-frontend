@@ -12,9 +12,9 @@ const Home: React.FC = () => {
   return (
     <Page>
       <PageHeader
-        icon={<img src={chef} height={120} />}
-        title="Pirate King is Ready"
-        subtitle="Stake Uniswap LP tokens to claim your very own yummy LOD!"
+        icon="🌽"
+        title="LOD Party!"
+        subtitle="Use Los dorados and claim LOD token!"
       />
 
       <Container>
@@ -22,8 +22,8 @@ const Home: React.FC = () => {
       </Container>
       <Spacer size="lg" />
       <StyledInfo>
-        🏆<b>Pro Tip</b>: LOD-ETH UNI-V2 LP token pool yields TWICE more token
-        rewards per block.
+        🏆<b>Pro Tip</b>: you can yield more LOD by providing liquidty to
+        Uniswap and staking LODs.
       </StyledInfo>
       <Spacer size="lg" />
       <div
@@ -31,14 +31,18 @@ const Home: React.FC = () => {
           margin: '0 auto',
         }}
       >
-        <Button text="🔪 See the Menu" to="/farms/LOD-ETH%20UNI-V2%20LP" variant="secondary" />
+        <Button
+          text="Claim"
+          to="/farms/LOD-ETH%20UNI-V2%20LP"
+          variant="secondary"
+        />
       </div>
     </Page>
   )
 }
 
 const StyledInfo = styled.h3`
-  color: ${(props) => props.theme.color.grey[500]};
+  color: ${(props) => props.theme.color.white};
   font-size: 16px;
   font-weight: 400;
   margin: 0;
@@ -46,7 +50,7 @@ const StyledInfo = styled.h3`
   text-align: center;
 
   > b {
-    color: ${(props) => props.theme.color.grey[600]};
+    color: ${(props) => props.theme.color.white};
   }
 `
 

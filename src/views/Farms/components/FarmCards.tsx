@@ -27,9 +27,7 @@ const FarmCards: React.FC = () => {
   const { account } = useWallet()
   const stakedValue = useAllStakedValue()
 
-  const lodIndex = farms.findIndex(
-    ({ tokenSymbol }) => tokenSymbol === 'LOD',
-  )
+  const lodIndex = farms.findIndex(({ tokenSymbol }) => tokenSymbol === 'LOD')
 
   const lodPrice =
     lodIndex >= 0 && stakedValue[lodIndex]

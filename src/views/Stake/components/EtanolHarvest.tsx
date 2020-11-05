@@ -23,11 +23,10 @@ const EtanolHarvest: React.FC<HarvestProps> = ({ pid }) => {
     <Card>
       <CardContent>
         <StyledCardContentInner>
-
           <StyledCardHeader>
             <CardIcon>🥃</CardIcon>
             <Value value={getBalanceNumber(earnings)} />
-            <Label text="Golden Etanol Earned" />
+            <Label text="xLOD Balance" />
           </StyledCardHeader>
 
           <StyledCardActions>
@@ -41,7 +40,6 @@ const EtanolHarvest: React.FC<HarvestProps> = ({ pid }) => {
               }}
             />
           </StyledCardActions>
-          
         </StyledCardContentInner>
       </CardContent>
     </Card>

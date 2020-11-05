@@ -8,7 +8,11 @@ const Nav: React.FC = () => {
       <StyledLink exact activeClassName="active" to="/">
         Home
       </StyledLink>
-      <StyledLink exact activeClassName="active" to="/farms/LOD-ETH%20UNI-V2%20LP">
+      <StyledLink
+        exact
+        activeClassName="active"
+        to="/farms/LOD-ETH%20UNI-V2%20LP"
+      >
         Farming
       </StyledLink>
       <StyledLink exact activeClassName="active" to="/staking">
@@ -30,13 +34,13 @@ const StyledNav = styled.nav`
 `
 
 const StyledLink = styled(NavLink)`
-  color: ${(props) => props.theme.color.grey[400]};
+  color: ${(props) => props.theme.color.white};
   font-weight: 700;
   padding-left: ${(props) => props.theme.spacing[3]}px;
   padding-right: ${(props) => props.theme.spacing[3]}px;
   text-decoration: none;
   &:hover {
-    color: ${(props) => props.theme.color.grey[500]};
+    color: ${(props) => props.theme.color.grey[200]};
   }
   &.active {
     color: ${(props) => props.theme.color.primary.main};
@@ -48,13 +52,13 @@ const StyledLink = styled(NavLink)`
 `
 
 const StyledAbsoluteLink = styled.a`
-  color: ${(props) => props.theme.color.grey[400]};
+  color: ${(props) => props.theme.color.white};
   font-weight: 700;
   padding-left: ${(props) => props.theme.spacing[3]}px;
   padding-right: ${(props) => props.theme.spacing[3]}px;
   text-decoration: none;
   &:hover {
-    color: ${(props) => props.theme.color.grey[500]};
+    color: ${(props) => props.theme.color.grey[200]};
   }
   &.active {
     color: ${(props) => props.theme.color.primary.main};

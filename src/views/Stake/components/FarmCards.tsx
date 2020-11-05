@@ -27,9 +27,7 @@ const FarmCards: React.FC = () => {
   const { account } = useWallet()
   const stakedValue = useAllStakedValue()
 
-  const lodIndex = farms.findIndex(
-    ({ tokenSymbol }) => tokenSymbol === 'LOD',
-  )
+  const lodIndex = farms.findIndex(({ tokenSymbol }) => tokenSymbol === 'LOD')
 
   const lodPrice =
     lodIndex >= 0 && stakedValue[lodIndex]
@@ -254,7 +252,7 @@ const StyledCardWrapper = styled.div`
 `
 
 const StyledTitle = styled.h4`
-  color: ${(props) => props.theme.color.grey[600]};
+  color: ${(props) => props.theme.color.grey[800]};
   font-size: 24px;
   font-weight: 700;
   margin: ${(props) => props.theme.spacing[2]}px 0 0;
@@ -278,7 +276,7 @@ const StyledDetails = styled.div`
 `
 
 const StyledDetail = styled.div`
-  color: ${(props) => props.theme.color.grey[500]};
+  color: ${(props) => props.theme.color.grey[800]};
 `
 
 const StyledInsight = styled.div`

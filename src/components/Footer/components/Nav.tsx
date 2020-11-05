@@ -8,7 +8,7 @@ const Nav: React.FC = () => {
         target="_blank"
         href="https://etherscan.io/address/0xc2edad668740f1aa35e4d8f227fb8e17dca888cd#code"
       >
-        MasterChef Contract
+        LOD Contract
       </StyledLink>
       <StyledLink
         target="_blank"
@@ -35,12 +35,12 @@ const StyledNav = styled.nav`
 `
 
 const StyledLink = styled.a`
-  color: ${(props) => props.theme.color.grey[400]};
+  color: ${(props) => props.theme.color.white};
   padding-left: ${(props) => props.theme.spacing[3]}px;
   padding-right: ${(props) => props.theme.spacing[3]}px;
   text-decoration: none;
   &:hover {
-    color: ${(props) => props.theme.color.grey[500]};
+    color: ${(props) => props.theme.color.grey[200]};
   }
 `
 

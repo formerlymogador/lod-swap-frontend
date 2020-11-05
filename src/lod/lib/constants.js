@@ -77,7 +77,7 @@ export const supportedPools = [
     tokenAddresses: {
       1: '0x6b3595068778dd592e39a122f4f5a5cf09c90fe2',
     },
-    name: 'LOD Party!',
+    name: 'Provide Liquidtity',
     symbol: 'LOD-ETH UNI-V2 LP',
     tokenSymbol: 'LOD',
     icon: '🌽',

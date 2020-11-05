@@ -6,9 +6,8 @@ import chef from '../../assets/img/chef.png'
 const Logo: React.FC = () => {
   return (
     <StyledLogo to="/">
-      <img src={chef} height="32" style={{ marginTop: -4 }} />
       <StyledText>
-        LOD Swap <MasterChefText>Pirate King</MasterChefText>
+        Los Dorados <MasterChefText>Lod Token</MasterChefText>
       </StyledText>
     </StyledLogo>
   )
@@ -26,7 +25,7 @@ const StyledLogo = styled(Link)`
 `
 
 const StyledText = styled.span`
-  color: ${(props) => props.theme.color.grey[600]};
+  color: ${(props) => props.theme.color.white};
   font-family: 'Reem Kufi', sans-serif;
   font-size: 20px;
   font-weight: 700;

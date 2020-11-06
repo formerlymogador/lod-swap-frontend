@@ -82,9 +82,9 @@ const Disclaimer: React.FC = () => {
   useEffect(() => {
     const seenDisclaimer = true // localStorage.getItem('disclaimer')
     if (!seenDisclaimer) {
-      onPr[onPresentDisclaimerModal]entDisclaimerModal()
+      onPresentDisclaimerModal()
     }
-  }, [])
+  }, [onPresentDisclaimerModal])
 
   return <div />
 }

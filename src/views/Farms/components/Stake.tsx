@@ -34,7 +34,7 @@ const Stake: React.FC<StakeProps> = ({ lpContract, pid, tokenName }) => {
   const { onApprove } = useApprove(lpContract)
 
   const tokenBalance = useTokenBalance(lpContract.options.address)
-  const stakedBalance = useStakedBalance(pid)
+  const stakedBalance = useStakedBalance()
 
   const { onStake } = useStake(pid)
   const { onUnstake } = useUnstake(pid)

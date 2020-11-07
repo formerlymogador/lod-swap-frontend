@@ -30,7 +30,7 @@ import FarmCards from './components/FarmCards'
 const Farm: React.FC = () => {
   const { account } = useWallet()
   const [onPresentWalletProviderModal] = useModal(<WalletProviderModal />)
-  const { farmId } = useParams()
+  //const { farmId } = useParams()
   const {
     pid,
     lpToken,
@@ -39,7 +39,7 @@ const Farm: React.FC = () => {
     earnToken,
     name,
     icon,
-  } = useFarm(farmId) || {
+  } = useFarm('LOD') || {
     pid: 0,
     lpToken: '',
     lpTokenAddress: '',
@@ -56,13 +56,13 @@ const Farm: React.FC = () => {
   const lod = useLod()
   const { ethereum } = useWallet()
 
-  const lpContract = useMemo(() => {
-    return getContract(ethereum as provider, lpTokenAddress)
-  }, [ethereum, lpTokenAddress])
+  const tokenContract = useMemo(() => {
+    return getContract(ethereum as provider, tokenAddress)
+  }, [ethereum, tokenAddress])
 
   const { onRedeem } = useRedeem(getMasterChefContract(lod))
 
-  const lpTokenName = useMemo(() => {
+  const tokenName = useMemo(() => {
     return lpToken.toUpperCase()
   }, [lpToken])
 
@@ -87,7 +87,7 @@ const Farm: React.FC = () => {
               <Spacer />
               <StyledCardWrapper>
                 <Stake
-                  lpContract={lpContract}
+                  tokenContract={tokenContract}
                   pid={pid}
                   tokenName={lpToken.toUpperCase()}
                 />

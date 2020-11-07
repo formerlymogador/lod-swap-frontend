@@ -22,9 +22,20 @@ export const getlodAddress = (lod) => {
 export const getWethContract = (lod) => {
   return lod && lod.contracts && lod.contracts.weth
 }
-
 export const getMasterChefContract = (lod) => {
   return lod && lod.contracts && lod.contracts.masterChef
+}
+export const getmDistributorContract = (lod) => {
+  return lod && lod.contracts && lod.contracts.mDistributor
+}
+export const getlDistributorContract = (lod) => {
+  return lod && lod.contracts && lod.contracts.lDistributor
+}
+export const getsDistributorContract = (lod) => {
+  return lod && lod.contracts && lod.contracts.sDistributor
+}
+export const getTreasuryAddress = (lod) => {
+  return lod && lod.treasuryAddress
 }
 export const getLodContract = (lod) => {
   return lod && lod.contracts && lod.contracts.lod
@@ -69,8 +80,12 @@ export const getPoolWeight = async (masterChefContract, pid) => {
   return new BigNumber(allocPoint).div(new BigNumber(totalAllocPoint))
 }
 
-export const getEarned = async (masterChefContract, pid, account) => {
-  return masterChefContract.methods.pendingLod(pid, account).call()
+export const getEarned = async (distributor, pid, account) => {
+  return distributor.methods.pendingRewards(account).call()
+}
+
+export const getStakingEarned = async (distributor, pid, account) => {
+  return distributor.methods.pendingLod(account).call()
 }
 
 export const getTotalLPWethValue = async (
@@ -116,9 +131,9 @@ export const getTotalLPWethValue = async (
   }
 }
 
-export const approve = async (lpContract, masterChefContract, account) => {
-  return lpContract.methods
-    .approve(masterChefContract.options.address, ethers.constants.MaxUint256)
+export const approve = async (token, distributor, account) => {
+  return token.methods
+    .approve(distributor.options.address, ethers.constants.MaxUint256)
     .send({ from: account })
 }
 
@@ -126,10 +141,11 @@ export const getLodSupply = async (lod) => {
   return new BigNumber(await lod.contracts.lod.methods.totalSupply().call())
 }
 
-export const stake = async (masterChefContract, pid, amount, account) => {
-  return masterChefContract.methods
+export const stake = async (distributor, pid, amount, account) => {
+  return distributor.methods
     .deposit(
-      pid,
+      account,
+      account,
       new BigNumber(amount).times(new BigNumber(10).pow(18)).toString(),
     )
     .send({ from: account })
@@ -139,10 +155,10 @@ export const stake = async (masterChefContract, pid, amount, account) => {
     })
 }
 
-export const unstake = async (masterChefContract, pid, amount, account) => {
-  return masterChefContract.methods
+export const unstake = async (distributor, pid, amount, account) => {
+  return distributor.methods
     .withdraw(
-      pid,
+      account,
       new BigNumber(amount).times(new BigNumber(10).pow(18)).toString(),
     )
     .send({ from: account })
@@ -151,9 +167,9 @@ export const unstake = async (masterChefContract, pid, amount, account) => {
       return tx.transactionHash
     })
 }
-export const harvest = async (masterChefContract, pid, account) => {
-  return masterChefContract.methods
-    .deposit(pid, '0')
+export const harvest = async (distributor, pid, account) => {
+  return distributor.methods
+    .deposit(account, account, '0')
     .send({ from: account })
     .on('transactionHash', (tx) => {
       console.log(tx)
@@ -161,12 +177,34 @@ export const harvest = async (masterChefContract, pid, account) => {
     })
 }
 
-export const getStaked = async (masterChefContract, pid, account) => {
+export const getStaked = async (distributor, account) => {
   try {
-    const { amount } = await masterChefContract.methods
-      .userInfo(pid, account)
-      .call()
+    const { amount } = await distributor.methods.userInfo(account).call()
+    console.log(amount)
     return new BigNumber(amount)
+  } catch {
+    return new BigNumber(0)
+  }
+}
+
+export const getUnclaimed = async (distributor, account) => {
+  try {
+    let sum = 0
+    const rounds = await distributor.methods.round().call()
+    for (let i = 0; i < rounds; i++) {
+      const amount = await distributor.methods.checkReward(i, account).call()
+      sum += amount
+    }
+    return new BigNumber(sum)
+  } catch {
+    return new BigNumber(0)
+  }
+}
+
+export const getRemainingReward = async (lod, treasury) => {
+  try {
+    let reward = await lod.methods.balanceOf(treasury).call()
+    return new BigNumber(reward)
   } catch {
     return new BigNumber(0)
   }
@@ -185,4 +223,22 @@ export const redeem = async (masterChefContract, account) => {
   } else {
     alert('pool not active')
   }
+}
+
+export const claim = async (distributor, account) => {
+  let rounds = []
+  const round = await distributor.methods.round().call()
+  for (let i = 0; i < round; i++) {
+    const amount = await distributor.methods.checkReward(i, account).call()
+    if (amount > 0) {
+      rounds.push(i)
+    }
+  }
+  return await distributor.methods
+    .withdrawRewardAll(rounds, account)
+    .send({ from: account })
+    .on('transactionHash', (tx) => {
+      console.log(tx)
+      return tx.transactionHash
+    })
 }

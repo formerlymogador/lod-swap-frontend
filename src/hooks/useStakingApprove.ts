@@ -5,23 +5,24 @@ import { useWallet } from 'use-wallet'
 import { provider } from 'web3-core'
 import { Contract } from 'web3-eth-contract'
 
-import { approve, getlDistributorContract } from '../lod/utils'
+import { approve, getsDistributorContract } from '../lod/utils'
 
-const useApprove = (lpContract: Contract) => {
+const useStakingApprove = (tokenContract: Contract) => {
   const { account }: { account: string; ethereum: provider } = useWallet()
   const lod = useLod()
-  const lDistributor = getlDistributorContract(lod)
+  const sDistributor = getsDistributorContract(lod)
+  console.log(sDistributor)
 
   const handleApprove = useCallback(async () => {
     try {
-      const tx = await approve(lpContract, lDistributor, account)
+      const tx = await approve(tokenContract, sDistributor, account)
       return tx
     } catch (e) {
       return false
     }
-  }, [account, lpContract, lDistributor])
+  }, [account, tokenContract, sDistributor])
 
   return { onApprove: handleApprove }
 }
 
-export default useApprove
+export default useStakingApprove

@@ -1,6 +1,9 @@
 import BigNumber from 'bignumber.js/bignumber'
 import ERC20Abi from './abi/erc20.json'
-import MasterChefAbi from './abi/masterchef.json'
+import mDistributor from './abi/MarketDistributor.json'
+import lDistributor from './abi/LiquidityDistributor.json'
+import sDistributor from './abi/StakingDistributor.json'
+import treasuryAbi from './abi/Treasury.json'
 import LodAbi from './abi/lod.json'
 import UNIV2PairAbi from './abi/uni_v2_lp.json'
 import WETHAbi from './abi/weth.json'
@@ -21,8 +24,11 @@ export class Contracts {
     this.defaultGas = options.defaultGas
     this.defaultGasPrice = options.defaultGasPrice
 
-    this.lod = new this.web3.eth.Contract(LodAbi)
-    this.masterChef = new this.web3.eth.Contract(MasterChefAbi)
+    this.lod = new this.web3.eth.Contract(LodAbi.abi)
+    this.mDistributor = new this.web3.eth.Contract(mDistributor.abi)
+    this.sDistributor = new this.web3.eth.Contract(sDistributor.abi)
+    this.lDistributor = new this.web3.eth.Contract(lDistributor.abi)
+    this.treasury = new this.web3.eth.Contract(treasuryAbi.abi)
     this.weth = new this.web3.eth.Contract(WETHAbi)
 
     this.pools = supportedPools.map((pool) =>
@@ -46,7 +52,19 @@ export class Contracts {
     }
 
     setProvider(this.lod, contractAddresses.lod[networkId])
-    setProvider(this.masterChef, contractAddresses.masterChef[networkId])
+    setProvider(
+      this.mDistributor,
+      contractAddresses.mDistributorAddress[networkId],
+    )
+    setProvider(
+      this.sDistributor,
+      contractAddresses.sDistributorAddress[networkId],
+    )
+    setProvider(
+      this.lDistributor,
+      contractAddresses.lDistributorAddress[networkId],
+    )
+    setProvider(this.treasury, contractAddresses.treasury[networkId])
     setProvider(this.weth, contractAddresses.weth[networkId])
 
     this.pools.forEach(
@@ -59,7 +77,10 @@ export class Contracts {
 
   setDefaultAccount(account) {
     this.lod.options.from = account
-    this.masterChef.options.from = account
+    this.mDistributor.options.from = account
+    this.sDistributor.options.from = account
+    this.lDistributor.options.from = account
+    this.treasury.options.from = account
   }
 
   async callContractFunction(method, options) {

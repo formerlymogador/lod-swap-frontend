@@ -3,20 +3,20 @@ import { useCallback } from 'react'
 import useLod from './useLod'
 import { useWallet } from 'use-wallet'
 
-import { harvest, getlDistributorContract } from '../lod/utils'
+import { harvest, getsDistributorContract } from '../lod/utils'
 
-const useReward = (pid: number) => {
+const useStakingReward = (pid: number) => {
   const { account } = useWallet()
   const lod = useLod()
-  const lDistributor = getlDistributorContract(lod)
+  const sDistributor = getsDistributorContract(lod)
 
   const handleReward = useCallback(async () => {
-    const txHash = await harvest(lDistributor, pid, account)
+    const txHash = await harvest(sDistributor, pid, account)
     console.log(txHash)
     return txHash
-  }, [lDistributor, pid, account])
+  }, [sDistributor, pid, account])
 
   return { onReward: handleReward }
 }
 
-export default useReward
+export default useStakingReward

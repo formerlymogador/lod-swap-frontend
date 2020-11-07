@@ -40,13 +40,22 @@ export const addressMap = {
 
 export const contractAddresses = {
   lod: {
-    1: '0x6b3595068778dd592e39a122f4f5a5cf09c90fe2',
+    4: '0xFc6f37e76BC7A1EAB8E5317b56Ad65b65ED7ce1E',
   },
-  masterChef: {
-    1: '0xc2edad668740f1aa35e4d8f227fb8e17dca888cd',
+  mDistributorAddress: {
+    4: '0xfc80813150bf7f499451aD608f8ece5E2e69A67d',
+  },
+  lDistributorAddress: {
+    4: '0x554b483f9b635E55D2d447E2F9C0B5faa3AE0823',
+  },
+  sDistributorAddress: {
+    4: '0x095722d0f74B564F189a4eF8df5142FeDE1a58d4',
   },
   weth: {
-    1: '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2',
+    4: '0xc778417e063141139fce010982780140aa0cd5ab',
+  },
+  treasury: {
+    4: '0x122EB41aaC4998085222A6377410167289eaB0c2',
   },
 }
 
@@ -73,13 +82,32 @@ export const supportedPools = [
     pid: 12,
     lpAddresses: {
       1: '0xce84867c3c02b05dc570d0135103d3fb9cc19433',
+      4: '0xa4476ff0c5b543f830cc237721d22d29f5ad9a24',
     },
     tokenAddresses: {
       1: '0x6b3595068778dd592e39a122f4f5a5cf09c90fe2',
+      4: '0xFc6f37e76BC7A1EAB8E5317b56Ad65b65ED7ce1E',
     },
     name: 'Provide Liquidtity',
     symbol: 'LOD-ETH UNI-V2 LP',
     tokenSymbol: 'LOD',
     icon: '🌽',
   },
+  {
+    pid: 12,
+    lpAddresses: {
+      1: '0xce84867c3c02b05dc570d0135103d3fb9cc19433',
+      4: '0xa4476ff0c5b543f830cc237721d22d29f5ad9a24',
+    },
+    tokenAddresses: {
+      1: '0x6b3595068778dd592e39a122f4f5a5cf09c90fe2',
+      4: '0xFc6f37e76BC7A1EAB8E5317b56Ad65b65ED7ce1E',
+    },
+    name: 'Provide Liquidtity',
+    symbol: 'LOD',
+    tokenSymbol: 'LOD',
+    icon: '🌽',
+  },
 ]
+
+/**Rinkeby need to be changed */

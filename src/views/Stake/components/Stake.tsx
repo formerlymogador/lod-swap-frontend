@@ -10,34 +10,34 @@ import IconButton from '../../../components/IconButton'
 import { AddIcon } from '../../../components/icons'
 import Label from '../../../components/Label'
 import Value from '../../../components/Value'
-import useAllowance from '../../../hooks/useAllowance'
-import useApprove from '../../../hooks/useApprove'
+import useStakingAllowance from '../../../hooks/useStakingAllowance'
+import useStakingApprove from '../../../hooks/useStakingApprove'
 import useModal from '../../../hooks/useModal'
-import useStake from '../../../hooks/useStake'
-import useStakedBalance from '../../../hooks/useStakedBalance'
+import useStakingStake from '../../../hooks/useStakingStake'
+import useStakingStakedBalance from '../../../hooks/useStakingStakedBalance'
 import useTokenBalance from '../../../hooks/useTokenBalance'
-import useUnstake from '../../../hooks/useUnstake'
+import useStakingUnstake from '../../../hooks/useStakingUnstake'
 import { getBalanceNumber } from '../../../utils/formatBalance'
 import DepositModal from './DepositModal'
 import WithdrawModal from './WithdrawModal'
 
 interface StakeProps {
-  lpContract: Contract
+  tokenContract: Contract
   pid: number
   tokenName: string
 }
 
-const Stake: React.FC<StakeProps> = ({ lpContract, pid, tokenName }) => {
+const Stake: React.FC<StakeProps> = ({ tokenContract, pid, tokenName }) => {
   const [requestedApproval, setRequestedApproval] = useState(false)
 
-  const allowance = useAllowance(lpContract)
-  const { onApprove } = useApprove(lpContract)
+  const allowance = useStakingAllowance(tokenContract)
+  const { onApprove } = useStakingApprove(tokenContract)
 
-  const tokenBalance = useTokenBalance(lpContract.options.address)
-  const stakedBalance = useStakedBalance(pid)
+  const tokenBalance = useTokenBalance(tokenContract.options.address)
+  const stakedBalance = useStakingStakedBalance()
 
-  const { onStake } = useStake(pid)
-  const { onUnstake } = useUnstake(pid)
+  const { onStake } = useStakingStake(pid)
+  const { onUnstake } = useStakingUnstake(pid)
 
   const [onPresentDeposit] = useModal(
     <DepositModal

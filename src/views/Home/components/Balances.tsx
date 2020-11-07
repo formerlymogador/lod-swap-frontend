@@ -11,79 +11,32 @@ import Value from '../../../components/Value'
 import LodIcon from '../../../components/LodIcon'
 import useAllEarnings from '../../../hooks/useAllEarnings'
 import useAllStakedValue from '../../../hooks/useAllStakedValue'
-import useFarms from '../../../hooks/useFarms'
+import useRemainingReward from '../../../hooks/useRemainingReward'
 import useTokenBalance from '../../../hooks/useTokenBalance'
+import useUnclaimedBalance from '../../../hooks/useUnclaimedBalance'
 import useLod from '../../../hooks/useLod'
 import { getlodAddress, getLodSupply } from '../../../lod/utils'
 import { getBalanceNumber } from '../../../utils/formatBalance'
 
-const PendingRewards: React.FC = () => {
-  const [start, setStart] = useState(0)
-  const [end, setEnd] = useState(0)
-  const [scale, setScale] = useState(1)
-
-  const allEarnings = useAllEarnings()
-  let sumEarning = 0
-  for (let earning of allEarnings) {
-    sumEarning += new BigNumber(earning)
-      .div(new BigNumber(10).pow(18))
-      .toNumber()
-  }
-
-  const [farms] = useFarms()
-  const allStakedValue = useAllStakedValue()
-
-  if (allStakedValue && allStakedValue.length) {
-    const sumWeth = farms.reduce(
-      (c, { id }, i) => c + (allStakedValue[i].totalWethValue.toNumber() || 0),
-      0,
-    )
-  }
-
-  useEffect(() => {
-    setStart(end)
-    setEnd(sumEarning)
-  }, [end, sumEarning])
-
-  return (
-    <span
-      style={{
-        transform: `scale(${scale})`,
-        transformOrigin: 'right bottom',
-        transition: 'transform 0.5s',
-        display: 'inline-block',
-      }}
-    >
-      <CountUp
-        start={start}
-        end={end}
-        decimals={end < 0 ? 4 : end > 1e5 ? 0 : 3}
-        duration={1}
-        onStart={() => {
-          setScale(1.25)
-          setTimeout(() => setScale(1), 600)
-        }}
-        separator=","
-      />
-    </span>
-  )
-}
-
 const Balances: React.FC = () => {
-  const [totalSupply, setTotalSupply] = useState<BigNumber>()
+  //const [reward, setReward] = useState<BigNumber>()
   const lod = useLod()
   const lodBalance = useTokenBalance(getlodAddress(lod))
-  const { account, ethereum }: { account: any; ethereum: any } = useWallet()
+  const unclaimed = useUnclaimedBalance()
+  const reward = useRemainingReward()
 
+  const { account, ethereum }: { account: any; ethereum: any } = useWallet()
+  /*
   useEffect(() => {
-    async function fetchTotalSupply() {
+    async function fetchReward() {
       const supply = await getLodSupply(lod)
-      setTotalSupply(supply)
+      setReward(supply)
     }
     if (lod) {
-      fetchTotalSupply()
+      fetchReward()
     }
-  }, [lod, setTotalSupply])
+  }, [lod, setReward])
+  */
 
   return (
     <StyledWrapper>
@@ -103,9 +56,9 @@ const Balances: React.FC = () => {
           </StyledBalances>
         </CardContent>
         <Footnote>
-          Unclaimed LOD
+          Unclaimed LOD From NFT Trading
           <FootnoteValue>
-            <PendingRewards /> LOD
+            {!!account ? getBalanceNumber(unclaimed) : 'Locked'} LOD
           </FootnoteValue>
         </Footnote>
       </Card>
@@ -114,13 +67,11 @@ const Balances: React.FC = () => {
       <Card>
         <CardContent>
           <Label text="Remaining LOD rewards" />
-          <Value
-            value={totalSupply ? getBalanceNumber(totalSupply) : 'Locked'}
-          />
+          <Value value={!!account ? getBalanceNumber(reward) : 'Locked'} />
         </CardContent>
         <Footnote>
-          New rewards per block
-          <FootnoteValue>1,000 LOD</FootnoteValue>
+          Total LOD Supply
+          <FootnoteValue>210,000,000 LOD</FootnoteValue>
         </Footnote>
       </Card>
     </StyledWrapper>

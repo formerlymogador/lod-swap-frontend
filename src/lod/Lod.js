@@ -38,7 +38,10 @@ export class Lod {
     }
     this.contracts = new Contracts(realProvider, networkId, this.web3, options)
     this.lodAddress = contractAddresses.lod[networkId]
-    this.masterChefAddress = contractAddresses.masterChef[networkId]
+    this.mDistributorAddress = contractAddresses.mDistributorAddress[networkId]
+    this.sDistributorAddress = contractAddresses.sDistributorAddress[networkId]
+    this.lDistributorAddress = contractAddresses.lDistributorAddress[networkId]
+    this.treasuryAddress = contractAddresses.treasury[networkId]
     this.wethAddress = contractAddresses.weth[networkId]
   }
 

@@ -4,32 +4,32 @@ import { provider } from 'web3-core'
 import BigNumber from 'bignumber.js'
 import { useWallet } from 'use-wallet'
 
-import { getEarned, getlDistributorContract } from '../lod/utils'
+import { getStakingEarned, getsDistributorContract } from '../lod/utils'
 import useLod from './useLod'
 import useBlock from './useBlock'
 
-const useEarnings = (pid: number) => {
+const useStakingEarnings = (pid: number) => {
   const [balance, setBalance] = useState(new BigNumber(0))
   const {
     account,
     ethereum,
   }: { account: string; ethereum: provider } = useWallet()
   const lod = useLod()
-  const lDistributor = getlDistributorContract(lod)
+  const sDistributor = getsDistributorContract(lod)
   const block = useBlock()
 
   const fetchBalance = useCallback(async () => {
-    const balance = await getEarned(lDistributor, pid, account)
+    const balance = await getStakingEarned(sDistributor, pid, account)
     setBalance(new BigNumber(balance))
-  }, [account, lDistributor, pid])
+  }, [account, sDistributor, pid])
 
   useEffect(() => {
-    if (account && lDistributor && lod) {
+    if (account && sDistributor && lod) {
       fetchBalance()
     }
-  }, [account, block, lDistributor, setBalance, lod, fetchBalance])
+  }, [account, block, sDistributor, setBalance, lod, fetchBalance])
 
   return balance
 }
 
-export default useEarnings
+export default useStakingEarnings

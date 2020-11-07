@@ -3,16 +3,16 @@ import { useCallback } from 'react'
 import useLod from './useLod'
 import { useWallet } from 'use-wallet'
 
-import { stake, getlDistributorContract } from '../lod/utils'
+import { stake, getsDistributorContract } from '../lod/utils'
 
-const useStake = (pid: number) => {
+const useStakingStake = (pid: number) => {
   const { account } = useWallet()
   const lod = useLod()
 
   const handleStake = useCallback(
     async (amount: string) => {
       const txHash = await stake(
-        getlDistributorContract(lod),
+        getsDistributorContract(lod),
         pid,
         amount,
         account,
@@ -25,4 +25,4 @@ const useStake = (pid: number) => {
   return { onStake: handleStake }
 }
 
-export default useStake
+export default useStakingStake

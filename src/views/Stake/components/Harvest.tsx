@@ -6,8 +6,8 @@ import CardContent from '../../../components/CardContent'
 import CardIcon from '../../../components/CardIcon'
 import Label from '../../../components/Label'
 import Value from '../../../components/Value'
-import useEarnings from '../../../hooks/useEarnings'
-import useReward from '../../../hooks/useReward'
+import useStakingEarnings from '../../../hooks/useStakingEarnings'
+import useStakingReward from '../../../hooks/useStakingReward'
 import { getBalanceNumber } from '../../../utils/formatBalance'
 
 interface HarvestProps {
@@ -15,15 +15,14 @@ interface HarvestProps {
 }
 
 const Harvest: React.FC<HarvestProps> = ({ pid }) => {
-  const earnings = useEarnings(pid)
+  const earnings = useStakingEarnings(pid)
   const [pendingTx, setPendingTx] = useState(false)
-  const { onReward } = useReward(pid)
+  const { onReward } = useStakingReward(pid)
 
   return (
     <Card>
       <CardContent>
         <StyledCardContentInner>
-
           <StyledCardHeader>
             <CardIcon>🌽</CardIcon>
             <Value value={getBalanceNumber(earnings)} />
@@ -41,7 +40,6 @@ const Harvest: React.FC<HarvestProps> = ({ pid }) => {
               }}
             />
           </StyledCardActions>
-          
         </StyledCardContentInner>
       </CardContent>
     </Card>

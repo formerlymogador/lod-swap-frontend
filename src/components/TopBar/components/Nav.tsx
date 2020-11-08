@@ -18,10 +18,10 @@ const Nav: React.FC = () => {
       <StyledLink exact activeClassName="active" to="/staking">
         Staking
       </StyledLink>
-      <StyledAbsoluteLink
-        href="https://medium.com/lodswap/the-lodswap-project-c4049ea9941e"
-        target="_blank"
-      >
+      <StyledAbsoluteLink href="https://dev.los-dorados.io/" target="_blank">
+        Trading
+      </StyledAbsoluteLink>
+      <StyledAbsoluteLink href="https://medium.com/los-dorados" target="_blank">
         About
       </StyledAbsoluteLink>
     </StyledNav>

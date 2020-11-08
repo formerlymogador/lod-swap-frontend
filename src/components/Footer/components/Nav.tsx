@@ -6,23 +6,12 @@ const Nav: React.FC = () => {
     <StyledNav>
       <StyledLink
         target="_blank"
-        href="https://etherscan.io/address/0xc2edad668740f1aa35e4d8f227fb8e17dca888cd#code"
+        href="https://t.me/joinchat/SRwcEBxNsBIidoCL8v3lqg"
       >
-        LOD Contract
+        Telegram
       </StyledLink>
-      <StyledLink
-        target="_blank"
-        href="https://uniswap.info/pair/0xce84867c3c02b05dc570d0135103d3fb9cc19433"
-      >
-        Uniswap LOD-ETH
-      </StyledLink>
-      <StyledLink target="_blank" href="https://discord.gg/hJ2p555">
-        Discord
-      </StyledLink>
-      <StyledLink target="_blank" href="https://github.com/lodswap">
-        Github
-      </StyledLink>
-      <StyledLink target="_blank" href="https://twitter.com/lodswap">
+
+      <StyledLink target="_blank" href="https://twitter.com/Los_Dorados_NFT">
         Twitter
       </StyledLink>
     </StyledNav>
@@ -45,3 +34,21 @@ const StyledLink = styled.a`
 `
 
 export default Nav
+
+/*
+      <StyledLink
+        target="_blank"
+        href="https://uniswap.info/pair/0xa4476ff0c5b543f830cc237721d22d29f5ad9a24"
+      >
+        Uniswap LOD-ETH
+      </StyledLink>
+      <StyledLink
+        target="_blank"
+        href="https://etherscan.io/address/0xc2edad668740f1aa35e4d8f227fb8e17dca888cd#code"
+      >
+        LOD Contract
+      </StyledLink>
+      <StyledLink target="_blank" href="https://github.com/lodswap">
+        Github
+      </StyledLink>
+*/

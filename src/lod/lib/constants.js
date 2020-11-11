@@ -46,10 +46,10 @@ export const contractAddresses = {
     4: '0xfc80813150bf7f499451aD608f8ece5E2e69A67d',
   },
   lDistributorAddress: {
-    4: '0x554b483f9b635E55D2d447E2F9C0B5faa3AE0823',
+    4: '0x94791ff05480319033D1b7d098b393035f1fB6bB',
   },
   sDistributorAddress: {
-    4: '0x095722d0f74B564F189a4eF8df5142FeDE1a58d4',
+    4: '0x22Ba5De6b998D9A3DEd9566E4bd8aee54323692d',
   },
   weth: {
     4: '0xc778417e063141139fce010982780140aa0cd5ab',
